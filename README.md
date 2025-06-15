@@ -2,6 +2,9 @@
 
 A GitHub Copilot-powered AI tutor that teaches programming concepts using the Socratic method - guiding students to discover solutions through thoughtful questions rather than providing direct answers.
 
+> **🔗 Enhanced with [Socrates VS Code Extension](https://github.com/faramirezs/socrates/)**
+> This system integrates seamlessly with the Socrates VS Code extension, which will automatically tracks chat history and updates the memory-bank system in real-time to preserve accuracy and relevance throughout your learning journey.
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/faramirezs/socratic-coding-tutor)
 
 ## Overview
