@@ -1,3 +1,10 @@
 # Development and story files
 .dev
 .specstory
+
+# System files
+.DS_Store
+
+# Project documentation and tracking files
+implementation-summary.md
+prd.md

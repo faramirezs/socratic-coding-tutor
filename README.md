@@ -2,6 +2,8 @@
 
 A GitHub Copilot-powered AI tutor that teaches programming concepts using the Socratic method - guiding students to discover solutions through thoughtful questions rather than providing direct answers.
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/faramirezs/socratic-coding-tutor)
+
 ## Overview
 
 The Socratic Coding Tutor helps students develop deep understanding and independent problem-solving skills across various programming languages. Instead of giving immediate solutions, it asks guided questions that lead students to their own discoveries.
@@ -16,7 +18,7 @@ The Socratic Coding Tutor helps students develop deep understanding and independ
 
 memory-bank/                    # Persistent learning context
 ├── active-session.md          # Current conversation state
-├── student-profile.md         # Learning style and preferences  
+├── student-profile.md         # Learning style and preferences
 ├── progress.md                # Learning journey and mastery
 ├── tutoring-insights.md       # Effective teaching strategies
 ├── knowledgebase.md           # Programming concepts with questions
@@ -109,20 +111,20 @@ The tutor automatically reads your learning history at the start of each session
 ```
 Student: "My recursive function isn't working. It's supposed to calculate factorial."
 
-Tutor: "I see you're working with recursion. Before we look at the code, 
-what do you think are the two essential components every recursive 
+Tutor: "I see you're working with recursion. Before we look at the code,
+what do you think are the two essential components every recursive
 function needs?"
 
 Student: "A base case and... calling itself?"
 
-Tutor: "Exactly! Now, looking at your function, can you identify 
+Tutor: "Exactly! Now, looking at your function, can you identify
 where you've implemented each of these components?"
 
 [Student examines code and discovers missing base case]
 
 Student: "Oh! I don't have a proper base case for when n equals 0 or 1."
 
-Tutor: "Great discovery! What do you think should happen when n is 0 or 1 
+Tutor: "Great discovery! What do you think should happen when n is 0 or 1
 in a factorial calculation?"
 ```
 
