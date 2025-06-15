@@ -128,6 +128,20 @@ Tutor: "Great discovery! What do you think should happen when n is 0 or 1
 in a factorial calculation?"
 ```
 
+## Agent ECHO: Real-Time Memory Bank Workflow
+
+The diagram below illustrates the workflow of **Agent ECHO**, which updates the memory bank in real time as part of the Socratic Coding Tutor system:
+
+![Agent ECHO n8n Workflow](telegram-cloud-photo-size-1-5075828042047270840-y.jpg)
+
+**How it works:**
+- The workflow begins when a chat log is received via a webhook.
+- The chat log is parsed and sent to the Echo Agent.
+- The Echo Agent interacts with both the OpenAI model (for chat reasoning) and the Memory Bank (for persistent context).
+- Updates and insights are written back to the memory bank in Markdown format, ensuring your learning journey is always up to date.
+
+This real-time update mechanism allows the Socratic Coding Tutor to maintain an accurate, evolving record of your progress and learning context, supporting personalized and adaptive tutoring sessions.
+
 ## Contributing
 
 This is a template project designed to be customized for individual learning needs. Feel free to:
