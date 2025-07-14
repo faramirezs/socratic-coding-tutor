@@ -1,4 +1,3 @@
-
 # Memory Bank System - Writing Operations Guide
 
 ## Overview
@@ -27,6 +26,31 @@ Updates all relevant memory bank files based on current session:
 - `update tutoring-insights` - Update only teaching insights
 - `update knowledgebase` - Update only programming concepts
 - `update common-student-issues` - Update only common issues database
+- `update plan` - Update problem-solving plan with current progress and insights
+- `update plan-step` - Mark current plan step as completed and advance to next step
+
+#### Plan-Specific Updates:
+**`update plan`** - Comprehensive plan update:
+- **Reference**: Follow plan update procedures in `instructions/plan-mode-instructions.md`
+- Update current status and progress on active problem
+- Record completed steps and new insights discovered
+- Adjust iteration plan based on learning and discoveries
+- Update knowledge inventory with new skills gained
+- Modify MVP strategy if approach has evolved
+- Document hypothesis test results and learnings
+
+**`update plan-step`** - Incremental step completion:
+- **Reference**: Follow step completion workflows in `instructions/plan-mode-instructions.md`
+- Mark current step as completed with evidence
+- Record what was learned during this step
+- Identify any blockers or challenges encountered
+- Set next immediate action based on plan progression
+- Update active-session.md with new current focus
+
+**Plan Update Integration:**
+- All plan updates must align with plan mode documentation and transfer workflows
+- Plan documentation must follow student approval process from plan mode instructions
+- Plan updates should preserve student voice and reasoning as specified in plan mode guidelines
 
 #### Contextual Update: `update session-end`
 Perform end-of-session updates:
@@ -56,15 +80,17 @@ Before executing any update:
 - Report specific file access problems
 - Reference `init-memory-bank.md` for setup instructions
 - Provide recovery options
+
 ## Memory Bank File Structure
 
-The Memory Bank consists of six core files:
+The Memory Bank consists of seven core files:
 
 ```
 memory-bank/
 ├── active-session.md     # Current session state and immediate context
 ├── common-student-issues.md  # Catalog of common errors and diagnostic approaches
 ├── knowledgebase.md      # Programming concepts with Socratic question templates
+├── plan.md              # Problem-solving strategy and execution tracking
 ├── progress.md          # Long-term learning journey tracking
 ├── student-profile.md   # Student characteristics and learning preferences
 └── tutoring-insights.md # Accumulated tutoring wisdom and effective patterns
@@ -162,6 +188,78 @@ memory-bank/
 - Prevention approaches
 
 **Update scope:** Error patterns and diagnostic approaches
+
+### Update `plan.md`
+**When to update:**
+- Student creates new problem-solving plan
+- Significant progress made on current plan
+- Plan needs adjustment based on discoveries
+- Student completes major plan milestones
+- Plan approach proves ineffective and needs revision
+
+**What to update:**
+- **Current Status**: Where student is in their problem-solving journey
+- **Completed Steps**: Mark finished tasks with evidence and learnings
+- **Knowledge Inventory**: Update what student has learned vs. still needs to learn
+- **MVP Strategy**: Adjust if approach has evolved through experimentation
+- **Iteration Plan**: Modify next steps based on current progress and insights
+- **Hypothesis Testing**: Record results of experiments and new hypotheses
+- **Next Action**: Set specific, actionable next step for momentum
+
+**Update scope:** Problem-solving strategy and execution tracking
+
+**Plan Update Validation Rules:**
+- [ ] Updates are written in student's own words and perspective
+- [ ] Evidence provided for completed steps (code written, tests passed, concepts understood)
+- [ ] Next action is specific and immediately actionable
+- [ ] Plan maintains MVP-first approach and iterative complexity building
+- [ ] Updates preserve student's reasoning and decision-making process
+
+**Plan Documentation and Transfer Workflow:**
+
+**Step 1: Capture Student's Plan (During Planning Session)**
+- Use student's exact words and phrasing
+- Ask for precision when needed: "When you say 'handle the input,' what specifically do you mean?"
+- Maintain first-person perspective from student
+- Preserve student's reasoning: "Why did you choose this approach?"
+
+**Step 2: Seek Student Approval**
+- Present documented plan: "Does this capture your plan accurately?"
+- Allow student modifications and refinements
+- Get explicit confirmation: "Is this plan ready to guide your work?"
+
+**Step 3: Transfer to Active Session**
+- Update `active-session.md` with approved plan summary
+- Set current session focus based on plan's next immediate action
+- Link plan steps to session work for continuity
+
+**Step 4: Integration with Progress Tracking**
+- Cross-reference plan progress with `progress.md` concept mastery
+- Update skill development tracking based on plan completion
+- Document problem-solving skills gained through planning process
+
+**Error Handling for Plan Updates:**
+
+**Invalid Plan Update Scenarios:**
+- Plan update requested without active problem-solving context
+- Student hasn't completed any plan steps since last update
+- Insufficient evidence provided for claimed step completion
+
+**Response Actions:**
+- Request specific evidence: "What code did you write for this step?"
+- Ask for clarification: "What exactly did you accomplish since our last session?"
+- Guide toward actionable next step: "What's the smallest thing you could do to move forward?"
+
+**Plan Validation Failures:**
+- Next action too vague or overwhelming
+- Plan losing MVP-first approach (becoming too complex)
+- Student expressions unclear or imprecise
+
+**Recovery Procedures:**
+- Return to Socratic questioning to clarify intentions
+- Break down complex steps into smaller, testable pieces
+- Refocus on immediate, actionable next step
+- Preserve student agency while providing guidance
 
 ## Memory System Integrity Checklist
 

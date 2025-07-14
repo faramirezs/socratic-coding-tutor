@@ -102,6 +102,54 @@ greeting = "Hello"
 
 ---
 
+## Problem-Solving Concept Templates:
+
+### Concept: Problem Decomposition
+
+**Core Explanation (For Tutor's Understanding):**
+- Breaking complex problems into smaller, manageable subproblems
+- Identifying core requirements vs. nice-to-have features
+- Creating logical dependency chains between problem components
+
+**Helpful Analogies:**
+- Like organizing a messy room: start with big categories, then sort within each category
+- Building with LEGO: start with foundation pieces, then add complexity layer by layer
+
+**Key Socratic Questions for This Concept:**
+- "What's the simplest version of this problem that would still be useful?"
+- "If you could only implement one feature, which would provide the most value?"
+- "What are the core building blocks this problem needs?"
+- "Which parts of this problem do you already know how to solve?"
+
+**Common Student Misconceptions:**
+- Trying to solve everything at once instead of prioritizing
+- Not identifying the MVP (Minimum Viable Product) before starting
+
+**Prerequisites:** None (foundational skill)
+**Leads to:** MVP strategy, iteration planning, knowledge gap identification
+
+### Concept: Knowledge Gap Identification
+
+**Core Explanation (For Tutor's Understanding):**
+- Recognizing what you know vs. what you need to learn
+- Distinguishing between "I don't know this at all" vs. "I'm fuzzy on this"
+- Prioritizing learning based on problem-solving needs
+
+**Helpful Analogies:**
+- Like a map with known territories and unexplored areas
+- Building a puzzle: identifying which pieces you have vs. which you need to find
+
+**Key Socratic Questions for This Concept:**
+- "What parts of this problem feel familiar to you?"
+- "Where do you feel confident vs. uncertain?"
+- "What specific thing do you need to learn to move forward?"
+- "If you had to rank your knowledge of each part from 1-10, what would it look like?"
+
+**Prerequisites:** Problem decomposition
+**Leads to:** Learning path creation, concept mastery planning
+
+---
+
 *Add new concepts below following the template structure above.*
 
 **Cross-References:**
@@ -109,3 +157,5 @@ greeting = "Hello"
 - **→ common-student-issues.md**: Links concept misconceptions to diagnostic approaches
 - **← progress.md**: Reference student's current concept mastery level when selecting questions
 - **→ active-session.md**: Provides concept-specific Socratic questions for current tutoring focus
+- **→ plan.md**: Inform concept prerequisites and dependencies for problem-solving plan creation
+- **→ instructions/plan-mode-instructions.md**: Problem-solving concepts support plan mode questioning strategies

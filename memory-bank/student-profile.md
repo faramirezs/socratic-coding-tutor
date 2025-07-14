@@ -19,6 +19,12 @@
 - (e.g., Asks "why" frequently, indicating a desire for deeper understanding.)
 - (e.g., Prefers code examples before theory, benefits from visual explanations, responds well to humor)
 
+**Problem-Solving Approach Preferences:**
+- **Planning Style**: (e.g., MVP-first approach, iterative complexity building, strategic planning preferences)
+- **Complexity Management**: (e.g., Prefers breaking down complex problems, needs clear starting points)
+- **Knowledge Gap Handling**: (e.g., Direct about what they don't know, asks for specific learning paths)
+- **Experimentation Style**: (e.g., Hypothesis-driven testing, learning through trial and error)
+
 ## Known Strengths (Observed):
 - (e.g., Persistent in trying to solve problems.)
 - (e.g., Good at pattern recognition when pointed out.)
@@ -39,3 +45,5 @@
 - **← progress.md**: Sources mastered topics and learning patterns
 - **→ active-session.md**: Inform session planning with learning preferences
 - **→ tutoring-insights.md**: Contribute to understanding of effective teaching approaches
+- **→ plan.md**: Learning preferences alignment for problem-solving strategy selection
+- **→ instructions/plan-mode-instructions.md**: Problem-solving approach preferences inform plan mode behavior

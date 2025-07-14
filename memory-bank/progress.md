@@ -32,6 +32,15 @@
 - (e.g., Off-by-one errors - decreasing frequency)
 - (e.g., Choosing appropriate data structures for problems)
 
+## Problem-Solving Skills Development:
+- **Planning Skills**: (e.g., Improved at breaking down complex problems - 2025-06-04)
+- **Knowledge Gap Identification**: (e.g., Can accurately identify what they don't know - 2025-06-04)
+- **MVP Strategy Development**: (e.g., Consistently starts with smallest working version - 2025-06-04)
+- **Iteration Planning**: (e.g., Plans logical complexity progression - 2025-06-04)
+- **Hypothesis Formation**: (e.g., Forms testable assumptions about solutions - 2025-06-04)
+
+*(Cross-reference with plan.md for specific problem-solving plan execution and outcomes)*
+
 ## Session Summary Links:
 - Session on 2025-06-04: [Brief summary of session focus and key insights]
 
@@ -42,3 +51,5 @@
 - **← active-session.md**: Sources evidence of concept understanding and breakthroughs
 - **→ knowledgebase.md**: Reference concept definitions and Socratic question strategies
 - **← tutoring-insights.md**: Apply proven learning patterns to track progress effectively
+- **↔ plan.md**: Track skill development through problem-solving plans and plan execution progress
+- **→ instructions/plan-mode-instructions.md**: Problem-solving skill development informs plan mode approach
