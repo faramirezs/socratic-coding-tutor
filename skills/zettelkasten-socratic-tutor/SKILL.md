@@ -41,27 +41,38 @@ Before the first question, the agent must fully parse the target documentation.
 
 ### Steps
 
-1. **Read all files** in `target-docs/`. If the folder doesn't exist, ask the user to provide the path or paste the material.
+1. **Read all files** in `target-docs/`. If the folder doesn't exist or is empty, use `ask` to get the source material — this is a hard blocker; nothing else can proceed without it:
+
+   ```yaml
+   ask:
+     questions:
+       - question: "Where is the documentation you want to learn?"
+         options:
+           - label: "It's in target-docs/ — check again"
+           - label: "I'll paste the content now"
+           - label: "Point to a folder path"
+         recommended: 0
+   ```
 
 2. **Extract the concept graph**: Identify all distinct concepts, their relationships, dependencies, and key ideas. Think in terms of atomic units — each concept that warrants a single Zettelkasten note.
 
 3. **Write `target-docs/_index.md`** with this structure:
    ```markdown
    # Target Documentation Index
-   
+
    ## Total Concepts: [N]
-   
+
    ## Concept Map
    | ID | Concept | Dependencies | Complexity | Domain |
    |----|---------|--------------|------------|--------|
    | C01 | [name] | none | foundational | [area] |
    | C02 | [name] | C01 | intermediate | [area] |
    ...
-   
+
    ## Key Themes
    - [Theme 1]: covers concepts [C01, C04, C07...]
    - [Theme 2]: covers concepts [C02, C05...]
-   
+
    ## Coverage Baseline
    Total atomic concepts: [N]
    Estimated questions to full coverage: [N × 1.5]
@@ -70,16 +81,16 @@ Before the first question, the agent must fully parse the target documentation.
 4. **Initialize `knowledge/_coverage.md`**:
    ```markdown
    # Coverage Tracker
-   
+
    Session started: [timestamp]
    Total target concepts: [N]
    Concepts covered: 0
    Coverage: 0%
    Coverage velocity: —
-   
+
    ## Covered Concepts
    (none yet)
-   
+
    ## Remaining Concepts
    [list all concept IDs and names]
    ```
@@ -117,8 +128,6 @@ After ingestion, generate a learning route written into `knowledge/_route.md`.
 ## Route Rationale
 [Brief explanation of sequencing logic]
 ```
-
-Present a summary of the route to the learner before starting. One short paragraph, no spoilers about the content — just the structure and approximate session count.
 
 ---
 
@@ -317,7 +326,7 @@ Periodically (every 10 concepts or on learner request), generate a visual diff o
 ████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░ 38%
 
 Domain: Core Concepts  [████████░░] 80%
-Domain: Advanced       [████░░░░░░] 40%  
+Domain: Advanced       [████░░░░░░] 40%
 Domain: Application    [██░░░░░░░░] 20%
 Domain: Edge Cases     [░░░░░░░░░░]  0%
 ```
@@ -339,6 +348,8 @@ These are non-negotiable operating rules:
 5. **Momentum over perfection.** A partially-expressed concept that moves forward is worth more than a perfect concept that stalls the session. Use the 0.5-coverage credit to keep velocity high.
 
 6. **Display metrics after every concept.** The coverage line is not optional. The learner should always know where they are.
+
+7. **Default to action.** Only use `ask` when a decision has materially different tradeoffs the learner must own — source material location, session structure preference. Everything else, decide and proceed.
 
 ---
 
@@ -362,13 +373,31 @@ The learner can use these commands during a session:
 
 ## Initialization Sequence
 
-When this skill activates:
+When this skill activates, use `ask` once to gather both blocking inputs before doing any work — material location and session structure preference have meaningfully different execution paths:
 
-1. Ask: "What documentation or material would you like to transform into knowledge? You can share a folder path, paste content, or describe the subject."
-2. Once material is provided, run Phase 1 (ingestion) silently.
-3. Report back: "I've mapped [N] concepts across [K] themes. I've built a learning route — want me to walk you through the structure before we start? Or shall we dive straight in?"
-4. If learner wants route overview: show `_route.md` summary (themes and session count, no concept spoilers).
-5. Begin Phase 3 with the first concept in the route.
+```yaml
+ask:
+  questions:
+    - question: "Where is the material you want to learn?"
+      options:
+        - label: "It's already in target-docs/"
+        - label: "I'll paste the content"
+        - label: "Point me to a folder path"
+      recommended: 0
+    - question: "How would you like to start after I've mapped the content?"
+      options:
+        - label: "Show me the learning route overview first"
+        - label: "Dive straight into the first question"
+      recommended: 1
+```
+
+Once the learner responds:
+1. Run Phase 1 (ingestion) silently.
+2. Report: "Mapped [N] concepts across [K] themes — [session count] sessions estimated."
+3. If they chose route overview: show `_route.md` summary (themes and session count, no concept spoilers).
+4. Begin Phase 3 with the first concept in the route.
+
+Do not use `ask` again during a session unless Phase 1 hits a hard blocker (no material found at the stated location).
 
 ---
 
