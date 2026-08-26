@@ -40,7 +40,7 @@ memory-bank/                       # Persistent learning context
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/socratic-coding-tutor.git
+   git clone https://github.com/faramirezs/socratic-coding-tutor.git
    cd socratic-coding-tutor
    ```
 
