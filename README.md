@@ -81,7 +81,7 @@ Two optional extras:
 
 ## Example: One Tutor Exchange
 
-The shortest exchange to reproduce uses one `definition` question through the `socratic-ask` tool. There is no shell command: `socratic-ask` is an agent tool, so the agent makes the call and the learner only answers the prompt. The field names, the badge line and the coverage line come from [`tools/socratic-ask/socratic-ask.ts`](tools/socratic-ask/socratic-ask.ts); the worked call is the usage example in [`tools/socratic-ask/README.md`](tools/socratic-ask/README.md).
+The shortest exchange to reproduce uses one `definition` question through the `socratic-ask` tool. There is no shell command and no learner-typed call: `socratic-ask` is an agent tool, so the agent makes the call under the hood and the learner only answers the prompt. Field names, badges and the coverage line come from [`tools/socratic-ask/socratic-ask.ts`](tools/socratic-ask/socratic-ask.ts); the worked call is the usage example in [`tools/socratic-ask/README.md`](tools/socratic-ask/README.md). That file imports the harness it plugs into (`@oh-my-pi/pi-agent-core`, `../tui`) and this repository ships no `package.json`, so a clone alone cannot run the call. The steps below document the exchange; the [Reproduce it](#reproduce-it) recipe gives the part you can run today.
 
 ### Step 1: The agent calls the tool
 
@@ -110,7 +110,7 @@ await socraticAsk({
 
 Anchors are response anchors, not answers. The learner picks one or picks `Other (type your own)` and writes the answer in their own words.
 
-### Step 2: What the learner sees (trimmed)
+### Step 2: What the learner sees (trimmed reconstruction of the tool's renderer output, not a live capture)
 
 ```text
 Socratic Ask
@@ -120,7 +120,7 @@ Socratic Ask
  📊 Coverage: 8% (2/30 concepts) | Velocity: 1.8%/min | Est. to 100%: 51 min
 ```
 
-### Step 3: What the agent receives (trimmed)
+### Step 3: What the agent receives (trimmed reconstruction, not a live capture)
 
 ```text
 Learner selected: An atomic unit of knowledge linked to others
@@ -134,9 +134,9 @@ The coverage numbers follow the snapshot above: 2 fully covered concepts plus 0.
 
 ### Reproduce it
 
-1. Make the call from a client that can load the tool (see [Prerequisites](#prerequisites)). The tool needs an interactive UI and returns nothing without one.
+1. If you have a client that loads TypeScript agent tools (see [Prerequisites](#prerequisites)), make the call above. This repository alone cannot run it: the tool file imports its host harness and there is no `package.json` here. The tool also needs an interactive UI and returns nothing without one.
 2. Call it again with `narrowingAttempt: 3` and a `hintText`: the question then renders with a 💡 Hint block above the options, as the narrowing ladder in the tool README describes.
-3. For a walk-through with no extra tooling, use the transcripts under [Example Learning Sessions](#example-learning-sessions) and begin with `read my memory bank`.
+3. The runnable path today is conversational. Open the workspace in VS Code, turn on GitHub Copilot, say `read my memory bank`, then ask about your own code or a concept you want to understand. The transcripts under [Example Learning Sessions](#example-learning-sessions) show the expected tutor behaviour.
 
 ## Session Management
 
