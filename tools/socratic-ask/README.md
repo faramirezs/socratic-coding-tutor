@@ -33,7 +33,7 @@ questionType:
 
 conceptId?:         string   // maps to target-docs/_index.md concept ID
 narrowingAttempt?:  number   // 0-based; hint injected when ≥ 3
-hintText?:          string   // minimum scaffolding — never the full answer
+hintText?:          string   // minimum scaffolding: never the full answer
 coverage?:          CoverageSnapshot
 suggestedLinks?:    ConceptLinkSuggestion[]
 ```
@@ -55,7 +55,7 @@ await socraticAsk({
       ],
       recommended: 0,
       narrowingAttempt: 0,
-      hintText: "Think about what makes it \"atomic\" — what does one note contain?",
+      hintText: "Think about what makes it \"atomic\", what does one note contain?",
       coverage: {
         covered: 2,
         partial: 1,
@@ -71,7 +71,7 @@ await socraticAsk({
 
 ```
 Attempt 0  →  Full open question
-Attempt 1  →  Narrowing question ("You mentioned X — what about Y?")
+Attempt 1  →  Narrowing question ("You mentioned X; what about Y?")
 Attempt 2  →  Narrowing question (edge case probe)
 Attempt 3  →  hintText injected above the options
 Attempt 4+ →  Still with hint; agent considers partial credit (0.5)
