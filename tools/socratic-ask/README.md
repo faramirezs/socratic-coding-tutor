@@ -2,6 +2,12 @@
 
 A Socratic extension of the base `ask` tool, purpose-built for the [Zettelkasten Socratic Tutor skill](../../skills/zettelkasten-socratic-tutor/SKILL.md).
 
+## Where the tool runs
+
+`socratic-ask` is an agent tool, not a shell command. The class registers as `socratic-ask` (`SocraticAskTool`, `readonly name = "socratic-ask"`) and imports its UI, theme and session types from the host (`@oh-my-pi/pi-agent-core`, `@oh-my-pi/pi-tui`, and harness-relative paths such as `../tui`). It is meant to drop into that harness.
+
+`createIf(session)` returns `null` when the session has no UI, and `execute` aborts when it receives no interactive context, so a non-interactive run cannot use it. The learner never types the tool name: the agent calls the tool and the learner answers the prompt.
+
 ## What it adds over `ask`
 
 | Feature | Base `ask` | `socratic-ask` |

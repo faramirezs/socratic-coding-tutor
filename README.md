@@ -25,6 +25,15 @@ memory-bank/                       # Persistent learning context
 ├── tutoring-insights.md          # Effective teaching strategies
 ├── knowledgebase.md              # Programming concepts with questions
 └── common-student-issues.md      # Error patterns and diagnostics
+
+skills/                            # Agent skills (name + description front matter)
+├── coderpad/                     # Drive CoderPad Screen IDE in a shared browser
+└── zettelkasten-socratic-tutor/  # Socratic dialogue that produces atomic notes
+
+tools/
+└── socratic-ask/                 # Socratic extension of the base ask tool
+    ├── README.md                 # Schema, narrowing ladder, coverage line format
+    └── socratic-ask.ts           # Tool source
 ```
 
 ## Key Features
@@ -35,6 +44,23 @@ memory-bank/                       # Persistent learning context
 - **Persistent Memory**: Remembers your learning journey across sessions
 - **Adaptive Teaching**: Adjusts approach based on your learning style
 - **Safe Learning Environment**: Encourages exploration and mistakes
+
+## Prerequisites
+
+What the tutor needs from your client:
+
+- **GitHub Copilot with Copilot Chat.** The project is "a GitHub Copilot-powered AI tutor", and the setup step is to open the workspace in VS Code with GitHub Copilot enabled.
+- **Copilot Agent Mode.** The memory update commands (`update`, `update plan`, `update session-end`) are documented under Agent Mode, so the client must provide it. Agent Mode comes with a Copilot plan that includes it; this repository does not name a specific plan or license tier.
+- **VS Code.** It is the only client named in this repository, in the setup step below and in the workspace wording used throughout.
+- **Instruction file support.** The tutor identity and behavior live in [`instructions/copilot-instructions.md`](instructions/copilot-instructions.md), and plan mode behavior lives in [`instructions/plan-mode-instructions.md`](instructions/plan-mode-instructions.md). Your client must load those files as custom instructions; this repository does not state the exact setting path for any client.
+- **Skill file support.** The two skills are [`skills/zettelkasten-socratic-tutor/SKILL.md`](skills/zettelkasten-socratic-tutor/SKILL.md) and [`skills/coderpad/SKILL.md`](skills/coderpad/SKILL.md). Both declare `name` and `description` front matter, so the client must discover skills from that folder layout.
+
+No API keys, environment file or external service are needed for the tutor itself: the repository ships none, and the tutor runs inside the client.
+
+Two optional extras:
+
+- The `coderpad` skill additionally needs the `chrome-agent` CLI, a headed Chrome on your own machine with an isolated profile, and a reverse SSH tunnel. See [`skills/coderpad/SKILL.md`](skills/coderpad/SKILL.md).
+- The `socratic-ask` tool additionally needs a harness that loads TypeScript agent tools (`@oh-my-pi/pi-agent-core`). See [Example: One Tutor Exchange](#example-one-tutor-exchange).
 
 ## Getting Started
 
@@ -52,6 +78,65 @@ memory-bank/                       # Persistent learning context
    - Open the workspace in VS Code with GitHub Copilot enabled
    - **First time users**: Begin asking questions about your code or concepts
    - **Returning users**: Start with "read my memory bank" or "update" to restore context from previous sessions
+
+## Example: One Tutor Exchange
+
+The shortest exchange to reproduce uses one `definition` question through the `socratic-ask` tool. There is no shell command: `socratic-ask` is an agent tool, so the agent makes the call and the learner only answers the prompt. The field names, the badge line and the coverage line come from [`tools/socratic-ask/socratic-ask.ts`](tools/socratic-ask/socratic-ask.ts); the worked call is the usage example in [`tools/socratic-ask/README.md`](tools/socratic-ask/README.md).
+
+### Step 1: The agent calls the tool
+
+```typescript
+await socraticAsk({
+  questions: [
+    {
+      id: "q-definition-c01",
+      question: "How would you describe a Zettelkasten note in your own words?",
+      questionType: "definition",   // activation | definition | mechanism | contrast |
+                                    // application | synthesis | challenge
+      conceptId: "C01",             // concept ID from target-docs/_index.md
+      options: [
+        { label: "An atomic unit of knowledge linked to others", conceptId: "C01" },
+        { label: "A summary of a document", conceptId: "C01" },
+        { label: "A flashcard for spaced repetition", conceptId: "C01" },
+      ],
+      recommended: 0,               // index of the most-expected anchor
+      narrowingAttempt: 0,          // the hint is injected once this reaches 3
+      hintText: "What does one note contain, and what makes it atomic?",
+      coverage: { covered: 2, partial: 1, total: 30, sessionMinutes: 4.5 },
+    },
+  ],
+});
+```
+
+Anchors are response anchors, not answers. The learner picks one or picks `Other (type your own)` and writes the answer in their own words.
+
+### Step 2: What the learner sees (trimmed)
+
+```text
+Socratic Ask
+ 📖 definition  ✓ confident
+ How would you describe a Zettelkasten note in your own words?
+ └ ✓ An atomic unit of knowledge linked to others
+ 📊 Coverage: 8% (2/30 concepts) | Velocity: 1.8%/min | Est. to 100%: 51 min
+```
+
+### Step 3: What the agent receives (trimmed)
+
+```text
+Learner selected: An atomic unit of knowledge linked to others
+📊 Coverage: 8% (2/30 concepts) | Velocity: 1.8%/min | Est. to 100%: 51 min
+Learner state: confident
+Hint was shown: false
+Narrowing attempt: 0
+```
+
+The coverage numbers follow the snapshot above: 2 fully covered concepts plus 0.5 for the partial one, out of 30, rounds to 8%, and 8% over 4.5 minutes is 1.8%/min. Selecting a known anchor reports `confident`; typing an own-words answer reports `exploring` and captures that text as a verbatim quote for the atomic note.
+
+### Reproduce it
+
+1. Make the call from a client that can load the tool (see [Prerequisites](#prerequisites)). The tool needs an interactive UI and returns nothing without one.
+2. Call it again with `narrowingAttempt: 3` and a `hintText`: the question then renders with a 💡 Hint block above the options, as the narrowing ladder in the tool README describes.
+3. For a walk-through with no extra tooling, use the transcripts under [Example Learning Sessions](#example-learning-sessions) and begin with `read my memory bank`.
 
 ## Session Management
 
@@ -125,6 +210,19 @@ The tutor maintains context through the Memory Bank system:
 
 ### Automatic Context
 The tutor automatically reads your learning history at the start of each session to provide personalized guidance.
+
+## Memory Bank Privacy and Your Notes
+
+The seven files in `memory-bank/` ship as templates and worked examples, not as learner data:
+
+- The four student-data files (`student-profile.md`, `progress.md`, `active-session.md`, `plan.md`) hold placeholder fields only: bracketed prompts such as `[e.g., User123, or leave blank if anonymous]` and sample lines such as `(e.g., Explained polymorphism accurately - 2025-06-04)`. The sample dates (`2025-06-04`) and the sample identifier (`User123`) are illustrative.
+- Two files hold reusable tutor-facing reference content, not any person's record: `tutoring-insights.md` lists general questioning strategies and analogies, and `knowledgebase.md` holds concept templates plus one worked `Variables` entry whose two-line snippet reads `name = "Alice"` and `age = 25`. Those are fictional teaching strings, not a learner record.
+- `common-student-issues.md` is a template with an empty catalog, ready for new entries.
+- The files are meant to hold your own notes: your learning goals, your progress, your plans and your current session context, in your own words.
+- Anything written there is plain text in your own working copy or your own repository. Nothing else reads it unless you share it.
+- This repository ships no real learner data: no learner names, contact details, credentials or session history. Every identifier and date in the memory bank is a placeholder or an example.
+- The tutor reads the memory bank at the start of an interaction and writes to it only after you say `update`. The read rules are in [`instructions/copilot-instructions.md`](instructions/copilot-instructions.md); the write rules are in [`instructions/prompts/memory-bank-prompt.md`](instructions/prompts/memory-bank-prompt.md).
+- If you commit a memory bank that you have filled in, treat it as plain text that anyone with access to that repository can read.
 
 ## Problem-Solving Plan Mode
 
